@@ -1,0 +1,20 @@
+name: gitleaks
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+permissions:
+  contents: read
+  
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@a3f52bb3dbe9f51a869dce0037d44986b6dd2c58
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
